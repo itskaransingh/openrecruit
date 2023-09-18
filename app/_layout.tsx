@@ -12,7 +12,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: '/',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -20,7 +20,9 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    DMBold: require('../assets/fonts/DMSans-Bold.ttf'),
+    DMRegular: require('../assets/fonts/DMSans-Regular.ttf'),
+    DMMedium: require('../assets/fonts/DMSans-Medium.ttf'),
     ...FontAwesome.font,
   });
 
@@ -43,14 +45,8 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', headerShadowVisible:false }} />
-      </Stack>
-    </ThemeProvider>
+    <Stack />
   );
 }
