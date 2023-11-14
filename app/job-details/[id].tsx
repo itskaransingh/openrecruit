@@ -4,7 +4,7 @@ import { Text, View, SafeAreaView, ScrollView, RefreshControl, ActivityIndicator
 import { COLORS, SIZES, icons } from '../../constants'
 import { Company, JobAbout, JobFooter, JobTabs, ScreenHeaderBtn, Specifics } from '../../components'
 import useFetch from '../../hook/useFetch'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 type Props = {}
 
@@ -38,9 +38,11 @@ const JobDetails = (props: Props) => {
   }
 
 
-  const onRefresh = () => {
-
-  }
+  const onRefresh = useCallback(() => {
+    setRefreshing(true)
+    refetch()
+    setRefreshing(false)
+  }, [])
 
   return (
     <SafeAreaView
