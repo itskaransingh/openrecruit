@@ -13,7 +13,8 @@ const Home = (props: Props) => {
     }}>
       <Stack.Screen options={{
         headerStyle: {
-          backgroundColor: COLORS.lightWhite
+          backgroundColor: COLORS.lightWhite,
+
         },
         headerShadowVisible: false,
         headerLeft: () => (
@@ -23,6 +24,7 @@ const Home = (props: Props) => {
         headerRight: () => (
           <ScreenHeaderBtn dimension="100%" iconUrl={images.profile} />
         )
+        
       }} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View 

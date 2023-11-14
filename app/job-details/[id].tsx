@@ -2,14 +2,17 @@
 import { Stack, useGlobalSearchParams, useRouter } from 'expo-router'
 import { Text, View, SafeAreaView, ScrollView, RefreshControl, ActivityIndicator } from 'react-native'
 import { COLORS, SIZES, icons } from '../../constants'
-import { Company, JobTabs, ScreenHeaderBtn } from '../../components'
+import { Company, JobAbout, JobFooter, JobTabs, ScreenHeaderBtn, Specifics } from '../../components'
 import useFetch from '../../hook/useFetch'
 import { useState } from 'react'
 
 type Props = {}
 
+const tabs = ["About", "Qualifications", "Responsibilities"]
+
 const JobDetails = (props: Props) => {
   const [refreshing, setRefreshing] = useState(false)
+  const [activeTab, setActiveTab] = useState(tabs[0])
   const router = useRouter()
   const params = useGlobalSearchParams()
   console.log({ params })
@@ -19,7 +22,20 @@ const JobDetails = (props: Props) => {
     extended_publisher_details: 'false'
   })
 
-  console.log({ data })
+  console.log({ data: data[0]?.job_highlights ?? ["N/A"] })
+
+  const displayContent = () => {
+    switch (activeTab) {
+      case "About":
+        return <JobAbout data={data[0]?.job_description ?? "No Data Provided"}  />
+      case "Qualifications":
+        return <Specifics title={"Qualifications"} data={data[0]?.job_highlights?.Qualifications ?? ['N/A']} />
+      case "Responsibilities":
+        return <Specifics title={"Responsibilities"} data={data[0]?.job_highlights?.Responsibilities ?? ['N/A']} />
+      default:
+        break;
+    }
+  }
 
 
   const onRefresh = () => {
@@ -58,15 +74,20 @@ const JobDetails = (props: Props) => {
           }}
         >
           {loading ? <ActivityIndicator size={"large"} color={COLORS.primary} /> : error ? <Text>Something went wrong</Text> : (
-            <>
-            <Company jobTitle={data[0]?.job_title} logo={data[0]?.employer_logo} companyName={data[0]?.employer_name} location={data[0]?.job_country} />
-            <JobTabs />
-            </>
-            )}
+            <View style={{ padding: SIZES.medium, paddingBottom: 100 }}>
+              <Company jobTitle={data[0]?.job_title} logo={data[0]?.employer_logo} companyName={data[0]?.employer_name} location={data[0]?.job_country} />
+              <JobTabs
+                tabs={tabs}
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+              />
+              {displayContent()}
+            </View>
+          )}
         </View>
       </ScrollView>
 
-
+      <JobFooter url={data[0]?.job_google_link ?? "https://careers.google.com/jobs/results"} />
 
     </SafeAreaView>
   )
