@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  btnImg: (dimension) => ({
+  btnImg: (dimension: string) => ({
     width: dimension,
     height: dimension,
     borderRadius: SIZES.small / 1.25,

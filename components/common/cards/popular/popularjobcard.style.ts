@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     ...SHADOWS.medium,
     shadowColor: COLORS.white,
+    margin:10
   }),
   logoContainer: (selectedJob, item) => ({
     width: 50,
@@ -19,10 +20,12 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.medium,
     justifyContent: "center",
     alignItems: "center",
+    overflow: "hidden",
   }),
   logoImage: {
     width: "70%",
     height: "70%",
+    borderRadius: SIZES.medium,
   },
   companyName: {
     fontSize: SIZES.medium,
@@ -44,7 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
   },
-  publisher: (selectedJob) => ({
+  publisher: (selectedJob, item) => ({
     fontSize: SIZES.medium - 2,
     fontFamily: FONT.bold,
     color: selectedJob === item.job_id ? COLORS.white : COLORS.primary,
