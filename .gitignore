@@ -1,5 +1,7 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
+eas.json
+
 # dependencies
 node_modules/
 .env*
@@ -8,7 +10,6 @@ node_modules/
 dist/
 web-build/
 
-eas.json
 
 # Native
 *.orig.*
